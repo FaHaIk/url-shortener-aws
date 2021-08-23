@@ -1,0 +1,23 @@
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.center-wrapper {
+  width: 50%;
+}
+
+.settings-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spacer {
+  height: 7px;
+  width: 20px;
+}
+.ant-picker {
+  padding: 0 !important;
+}
