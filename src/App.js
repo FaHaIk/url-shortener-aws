@@ -17,10 +17,35 @@ function App() {
     setIsDatepickerDisabled(e.target.checked)
   }
 
+  const Enter = e => {
+    callAPI("Peter", "Zornig")
+  }
+
+  const callAPI = (firstName, lastName) => {
+    // instantiate a headers object
+    var myHeaders = new Headers();
+    // add content type header to object
+    myHeaders.append("Content-Type", "application/json");
+    // using built in JSON utility package turn object to string and store in a variable
+    var raw = JSON.stringify({ "firstName": firstName, "lastName": lastName });
+    // create a JSON object with parameters for API call and store in a variable
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    // make API call with parameters and use promises to get response
+    fetch("https://aq7cww6x21.execute-api.eu-central-1.amazonaws.com/dev", requestOptions)
+      .then(response => response.text())
+      .then(result => alert(JSON.parse(result).body))
+      .catch(error => console.log('error', error));
+  }
+
   return (
     <div className="App">
       <div className="center-wrapper">
-        <Input size="large" placeholder="Paste long URL and shorten it!" prefix={<SearchOutlined />} />
+        <Input onPressEnter={Enter} size="large" placeholder="Paste long URL and shorten it!" prefix={<SearchOutlined />} />
         <div className="spacer"></div>
         <div className="settings-wrapper">
           <div style={{ alignSelf: "center" }}>
