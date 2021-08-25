@@ -144,13 +144,12 @@ function ResponseScreen(props) {
 }
 
 function RedirectScreen() {
-  const [link, setLink] = React.useState("http://www.google.de");
+  const [notFound, setNotFound] = React.useState(false);
 
   let { id } = useParams();
 
   useEffect(() => {
     callAPIGetLink()
-    window.location.assign(link)
   }, []);
 
   const callAPIGetLink = () => {
@@ -174,13 +173,34 @@ function RedirectScreen() {
       .then(result => {
         let body = JSON.parse(result).body
         let item = JSON.parse(body).Item
-        setLink(item.longLink)
+        // setLink(item.longLink)
+        window.location.assign(item.longLink)
       })
-      .catch(error => console.log('error', error));
+      .catch(error => {
+        console.log('error', error)
+        setNotFound(true)
+      });
   }
 
+  let errorTxt = "No entry found with the id " + id + "."
+
   return (
-    <div>hi!</div>
+    <>
+      {notFound &&
+        <Card title="Sorry, there is nothing to see!" style={{ width: '100%' }}>
+          <Link href="/" target="_blank">
+            Go to Homepage.
+          </Link >
+          <Alert
+            message="Entry not found"
+            description={errorTxt}
+            type="error"
+            showIcon
+          />
+
+        </Card>
+      }
+    </>
   )
 }
 
