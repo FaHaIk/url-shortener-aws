@@ -115,12 +115,17 @@ function App() {
 
 function ResponseScreen(props) {
   const [isClicked, setIsClicked] = React.useState(false);
+
+  const cardStyle = {
+    boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.3)"
+  }
+
   function clicked() {
     setIsClicked(true)
   }
 
   return (
-    <Card title="You did it!" style={{ width: '100%' }}>
+    <Card style={cardStyle} title="You did it!" style={{ width: '100%' }}>
       <p>Click on the Icon to copy your link.</p>
       <Link href={props.shortlink} target="_blank">
         <Paragraph onClick={clicked} code copyable>
@@ -139,9 +144,11 @@ function ResponseScreen(props) {
 }
 
 function RedirectScreen() {
-  let { id } = useParams();
+
+  // let { id } = useParams();
+
   return (
-    <div>{id}</div>
+    window.location.assign("http://www.google.de")
   )
 }
 
