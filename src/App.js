@@ -1,5 +1,12 @@
 import './App.css';
 import React from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams
+} from "react-router-dom";
 import 'antd/dist/antd.css';
 import { Input, Radio, DatePicker, Checkbox } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
@@ -10,7 +17,9 @@ function App() {
   const [isPublic, setIsPublic] = React.useState(1);
   const [expirationDate, setExpirationDate] = React.useState("3000-10-10");
   const [link, setLink] = React.useState("");
+  const [shortLink, setShortLink] = React.useState("");
   const [isDatepickerDisabled, setIsDatepickerDisabled] = React.useState(true);
+  const [isDone, setIsDone] = React.useState(false);
 
   const onChangePublic = e => {
     setIsPublic(e.target.value);
@@ -52,40 +61,69 @@ function App() {
 
     fetch(process.env.REACT_APP_DB, requestOptions)
       .then(response => response.text())
-      .then(result => alert(JSON.parse(result).body))
+      .then(result => {
+        console.log("xx")
+        console.log(JSON.parse(result).body)
+        setIsDone(true)
+        // setShortLink(JSON.parse(result).body)
+      })
       .catch(error => console.log('error', error));
   }
 
   return (
-    <div className="App">
-      <div className="center-wrapper">
-        <form id="myForm" onSubmit={onPressEnter}>
-          <Input onChange={onChange} onPressEnter={onPressEnter} size="large" placeholder="Paste long URL and shorten it!" prefix={<SearchOutlined />} />
-          <div className="spacer"></div>
-          <div className="settings-wrapper">
-            <div style={{ alignSelf: "center" }}>
-              <Radio.Group onChange={onChangePublic} value={isPublic}>
-                <Radio value={1}>Public</Radio>
-                <Radio value={0}>Private</Radio>
-              </Radio.Group>
-            </div>
-            <div>
-              <Checkbox defaultChecked onChange={onChangeHasExpirationDate}>Never Expire</Checkbox>
-              <DatePicker
-                onChange={onChangeDatePicker}
-                disabled={isDatepickerDisabled}
-                placeholder="Expiration date"
-                disabledDate={(current) => {
-                  return current.valueOf() < Date.now();
-                }}
-                bordered={false}
-              />
-            </div>
-          </div>
-        </form>
+    <Router>
+      <div className="App">
+        <div className="center-wrapper">
+          <Switch>
+            <Route path="/:id">
+              <ResponseScreen />
+            </Route>
+            <Route exact path="/">
+              {isDone ? <ResponseScreen/> : <form id="myForm" onSubmit={onPressEnter}>
+                <Input onChange={onChange} onPressEnter={onPressEnter} size="large" placeholder="Paste long URL and shorten it!" prefix={<SearchOutlined />} />
+                <div className="spacer"></div>
+                <div className="settings-wrapper">
+                  <div style={{ alignSelf: "center" }}>
+                    <Radio.Group onChange={onChangePublic} value={isPublic}>
+                      <Radio value={1}>Public</Radio>
+                      <Radio value={0}>Private</Radio>
+                    </Radio.Group>
+                  </div>
+                  <div>
+                    <Checkbox defaultChecked onChange={onChangeHasExpirationDate}>Never Expire</Checkbox>
+                    <DatePicker
+                      onChange={onChangeDatePicker}
+                      disabled={isDatepickerDisabled}
+                      placeholder="Expiration date"
+                      disabledDate={(current) => {
+                        return current.valueOf() < Date.now();
+                      }}
+                      bordered={false}
+                    />
+                  </div>
+                </div>
+              </form>}
+
+            </Route>
+          </Switch>
+        </div>
       </div>
-    </div>
+    </Router>
   );
+}
+
+function ResponseScreen() {
+  let { id } = useParams();
+  return (
+    <div>{id}</div>
+  )
+}
+
+function RedirectScreen() {
+  let { id } = useParams();
+  return (
+    <div>{id}</div>
+  )
 }
 
 export default App;
