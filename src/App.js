@@ -150,7 +150,7 @@ function RedirectScreen() {
 
   useEffect(() => {
     callAPIGetLink()
-    // window.location.assign(link)
+    window.location.assign(link)
   }, []);
 
   const callAPIGetLink = () => {
@@ -172,13 +172,9 @@ function RedirectScreen() {
     fetch(process.env.REACT_APP_DB, requestOptions)
       .then(response => response.text())
       .then(result => {
-        console.log("dd")
-        console.log(JSON.parse(result).body)
-        // console.log(JSON.parse(result).Item.longLink)
         let body = JSON.parse(result).body
         let item = JSON.parse(body).Item
-        console.log(item.longLink)
-        // setLink(JSON.parse(result).Item.longLink)
+        setLink(item.longLink)
       })
       .catch(error => console.log('error', error));
   }
