@@ -19,6 +19,7 @@ function App() {
   const [shortLink, setShortLink] = React.useState("");
   const [isDatepickerDisabled, setIsDatepickerDisabled] = React.useState(true);
   const [isDone, setIsDone] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const onChangePublic = e => {
     setIsPublic(e.target.value);
@@ -33,6 +34,7 @@ function App() {
   }
 
   const onPressEnter = (e) => {
+    setIsLoading(true)
     callAPI()
   }
 
@@ -78,7 +80,7 @@ function App() {
               <RedirectScreen />
             </Route>
             <Route exact path="/">
-              {isDone ? <ResponseScreen shortlink={shortLink} /> : <form id="myForm" onSubmit={onPressEnter}>
+              {isDone ? <ResponseScreen shortlink={shortLink} /> : <Spin spinning={isLoading} delay={500}><form id="myForm" onSubmit={onPressEnter}>
                 <Input onChange={onChange} onPressEnter={onPressEnter} size="large" placeholder="Paste long URL and shorten it!" prefix={<LinkOutlined />} />
                 <div className="spacer"></div>
                 <div className="settings-wrapper">
@@ -101,8 +103,8 @@ function App() {
                     />
                   </div>
                 </div>
-              </form>}
-
+              </form>
+              </Spin>}
             </Route>
           </Switch>
         </div>
@@ -118,7 +120,7 @@ function ResponseScreen(props) {
   }
 
   return (
-    <Card title="Your shortened link!" style={{ width: '100%' }}>
+    <Card title="You did it!" style={{ width: '100%' }}>
       <p>Click on the Icon to copy your link.</p>
       <Link href={props.shortlink} target="_blank">
         <Paragraph onClick={clicked} code copyable>
@@ -127,7 +129,7 @@ function ResponseScreen(props) {
       </Link >
       {isClicked && <Alert
         message="Successfully Copied"
-        description="You have successfully copied your link.."
+        description="You have successfully copied your link."
         type="success"
         showIcon
       />}
