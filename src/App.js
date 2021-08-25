@@ -174,7 +174,8 @@ function RedirectScreen() {
       .then(result => {
         console.log("dd")
         console.log(JSON.parse(result).body)
-        console.log(JSON.parse(result).Item.longLink)
+        // console.log(JSON.parse(result).Item.longLink)
+        console.log(JSON.parse(result).body.Item)
         console.log(JSON.parse(result).body.Item.longLink)
         // setLink(JSON.parse(result).Item.longLink)
       })
