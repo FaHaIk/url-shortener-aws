@@ -79,7 +79,7 @@ function App() {
               <ResponseScreen />
             </Route>
             <Route exact path="/">
-              {isDone ? <ResponseScreen shortlink={shortLink} /> : <form id="myForm" onSubmit={onPressEnter}>
+              {isDone ? <div>{shortLink}</div> : <form id="myForm" onSubmit={onPressEnter}>
                 <Input onChange={onChange} onPressEnter={onPressEnter} size="large" placeholder="Paste long URL and shorten it!" prefix={<SearchOutlined />} />
                 <div className="spacer"></div>
                 <div className="settings-wrapper">
@@ -112,10 +112,12 @@ function App() {
   );
 }
 
+{/* <ResponseScreen shortlink={shortLink} /> */}
 function ResponseScreen(props) {
   // let { shortLink } = props;
   return (
-    <div>{props.shortLink}</div>
+    
+    <div>{props.shortLink} hasdasdasd</div>
   )
 }
 
