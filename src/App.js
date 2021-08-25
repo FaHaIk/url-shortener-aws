@@ -150,7 +150,7 @@ function RedirectScreen() {
 
   useEffect(() => {
     callAPIGetLink()
-    window.location.assign(link)
+    // window.location.assign(link)
   }, []);
 
   const callAPIGetLink = () => {
