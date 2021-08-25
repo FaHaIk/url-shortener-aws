@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import 'antd/dist/antd.css';
 import { Input, Radio, DatePicker, Checkbox } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { LinkOutlined } from '@ant-design/icons';
 
 // const BUILD_ENV = process.env.REACT_APP_BUILD_ENV || "any-default-local-build_env";
 
@@ -79,8 +79,8 @@ function App() {
               <ResponseScreen />
             </Route>
             <Route exact path="/">
-              {isDone ? <div>{shortLink}</div> : <form id="myForm" onSubmit={onPressEnter}>
-                <Input onChange={onChange} onPressEnter={onPressEnter} size="large" placeholder="Paste long URL and shorten it!" prefix={<SearchOutlined />} />
+              {isDone ? <ResponseScreen shortlink={shortLink} /> : <form id="myForm" onSubmit={onPressEnter}>
+                <Input onChange={onChange} onPressEnter={onPressEnter} size="large" placeholder="Paste long URL and shorten it!" prefix={<LinkOutlined />} />
                 <div className="spacer"></div>
                 <div className="settings-wrapper">
                   <div style={{ alignSelf: "center" }}>
@@ -114,10 +114,8 @@ function App() {
 
 {/* <ResponseScreen shortlink={shortLink} /> */}
 function ResponseScreen(props) {
-  // let { shortLink } = props;
   return (
-    
-    <div>{props.shortLink} hasdasdasd</div>
+    <div>{props.shortlink}</div>
   )
 }
 
