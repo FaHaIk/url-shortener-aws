@@ -7,7 +7,7 @@ import {
   useParams
 } from "react-router-dom";
 import 'antd/dist/antd.css';
-import { Input, Radio, DatePicker, Checkbox, Typography, Card } from 'antd';
+import { Input, Radio, DatePicker, Checkbox, Typography, Card, Alert } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 const { Paragraph, Link } = Typography;
 // const BUILD_ENV = process.env.REACT_APP_BUILD_ENV || "any-default-local-build_env";
@@ -112,14 +112,26 @@ function App() {
 }
 
 function ResponseScreen(props) {
+  const [isClicked, setIsClicked] = React.useState(false);
+  function clicked() {
+    setIsClicked(true)
+  }
+
   return (
     <Card title="Your shortened link!" style={{ width: '100%' }}>
       <p>Click on the Icon to copy your link.</p>
       <Link href={props.shortlink} target="_blank">
-        <Paragraph copyable>
+        <Paragraph onClick={clicked} code copyable>
           {props.shortlink}
         </Paragraph>
       </Link >
+      {isClicked && <Alert
+        message="Successfully Copied"
+        description="You have successfully copied your link.."
+        type="success"
+        showIcon
+      />}
+
     </Card>
   )
 }
