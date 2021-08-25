@@ -113,11 +113,14 @@ function App() {
 
 function ResponseScreen(props) {
   return (
-    <Link href={props.shortlink} target="_blank">
-      <Paragraph copyable>
-        {props.shortlink}
-      </Paragraph>
-    </Link >
+    <Card title="Your shortened link!" style={{ width: '100%' }}>
+      <p>Click on the Icon to copy your link.</p>
+      <Link href={props.shortlink} target="_blank">
+        <Paragraph copyable>
+          {props.shortlink}
+        </Paragraph>
+      </Link >
+    </Card>
   )
 }
 
