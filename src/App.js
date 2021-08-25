@@ -144,11 +144,43 @@ function ResponseScreen(props) {
 }
 
 function RedirectScreen() {
+  const [link, setLink] = React.useState("http://www.google.de");
 
-  // let { id } = useParams();
+  let { id } = useParams();
+
+  useEffect(() => {
+    callAPIGetLink()
+    window.location.assign(link)
+  }, []);
+
+  const callAPIGetLink = () => {
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "id": id
+    });
+
+    var requestOptions = {
+      method: 'PUT',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    }
+
+    fetch(process.env.REACT_APP_DB, requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        console.log("dd")
+        console.log(JSON.parse(result).body)
+        // setLink(JSON.parse(result).body)
+      })
+      .catch(error => console.log('error', error));
+  }
 
   return (
-    window.location.assign("http://www.google.de")
+    <div>hi!</div>
   )
 }
 
