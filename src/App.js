@@ -64,7 +64,7 @@ function App() {
       .then(result => {
         console.log("xx")
         console.log(JSON.parse(result).body)
-        setShortLink(JSON.parse(result).body)
+        setShortLink(result.body)
         setIsDone(true)
       })
       .catch(error => console.log('error', error));
@@ -113,9 +113,9 @@ function App() {
 }
 
 function ResponseScreen(props) {
-  let { shortLink } = props;
+  // let { shortLink } = props;
   return (
-    <div>{shortLink}</div>
+    <div>{props.shortLink}</div>
   )
 }
 
