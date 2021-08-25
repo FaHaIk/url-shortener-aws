@@ -64,7 +64,7 @@ function App() {
       .then(result => {
         console.log("xx")
         console.log(JSON.parse(result).body)
-        setShortLink(result.body)
+        setShortLink(JSON.parse(result).body)
         setIsDone(true)
       })
       .catch(error => console.log('error', error));
