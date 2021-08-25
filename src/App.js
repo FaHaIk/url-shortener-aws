@@ -64,8 +64,8 @@ function App() {
       .then(result => {
         console.log("xx")
         console.log(JSON.parse(result).body)
+        setShortLink(JSON.parse(result).body)
         setIsDone(true)
-        // setShortLink(JSON.parse(result).body)
       })
       .catch(error => console.log('error', error));
   }
@@ -79,7 +79,7 @@ function App() {
               <ResponseScreen />
             </Route>
             <Route exact path="/">
-              {isDone ? <ResponseScreen/> : <form id="myForm" onSubmit={onPressEnter}>
+              {isDone ? <ResponseScreen shortlink={shortLink} /> : <form id="myForm" onSubmit={onPressEnter}>
                 <Input onChange={onChange} onPressEnter={onPressEnter} size="large" placeholder="Paste long URL and shorten it!" prefix={<SearchOutlined />} />
                 <div className="spacer"></div>
                 <div className="settings-wrapper">
@@ -112,10 +112,10 @@ function App() {
   );
 }
 
-function ResponseScreen() {
-  let { id } = useParams();
+function ResponseScreen(props) {
+  let { shortLink } = props;
   return (
-    <div>{id}</div>
+    <div>{shortLink}</div>
   )
 }
 
