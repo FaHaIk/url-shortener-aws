@@ -4,6 +4,8 @@ import 'antd/dist/antd.css';
 import { Input, Radio, DatePicker, Checkbox } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
+const BUILD_ENV = process.env.REACT_APP_BUILD_ENV || "any-default-local-build_env"; 
+
 function App() {
   const [visibility, setVisibility] = React.useState(1);
   const [isDatepickerDisabled, setIsDatepickerDisabled] = React.useState(true);
@@ -28,9 +30,9 @@ function App() {
     myHeaders.append("Content-Type", "application/json");
     // using built in JSON utility package turn object to string and store in a variable
     var raw = JSON.stringify({
-      "isPublic": "0",
-      "expirationDate": "12.06.2022",
-      "longLink": "https://www.derda.net"
+      "isPublic": "1",
+      "expirationDate": "12.06.000",
+      "longLink": "https://www.barnicles.net"
     });
     // create a JSON object with parameters for API call and store in a variable
     var requestOptions = {
@@ -40,7 +42,7 @@ function App() {
       redirect: 'follow'
     };
     // make API call with parameters and use promises to get response
-    fetch("https://ctqcpzxkd1.execute-api.eu-central-1.amazonaws.com/dev", requestOptions)
+    fetch(process.env.REACT_APP_DB, requestOptions)
       .then(response => response.text())
       .then(result => alert(JSON.parse(result).body))
       .catch(error => console.log('error', error));
