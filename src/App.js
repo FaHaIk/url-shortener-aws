@@ -4,13 +4,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   useParams
 } from "react-router-dom";
 import 'antd/dist/antd.css';
-import { Input, Radio, DatePicker, Checkbox } from 'antd';
+import { Input, Radio, DatePicker, Checkbox, Typography } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
-
+const { Paragraph, Link } = Typography;
 // const BUILD_ENV = process.env.REACT_APP_BUILD_ENV || "any-default-local-build_env";
 
 function App() {
@@ -76,7 +75,7 @@ function App() {
         <div className="center-wrapper">
           <Switch>
             <Route path="/:id">
-              <ResponseScreen />
+              <RedirectScreen />
             </Route>
             <Route exact path="/">
               {isDone ? <ResponseScreen shortlink={shortLink} /> : <form id="myForm" onSubmit={onPressEnter}>
@@ -112,10 +111,13 @@ function App() {
   );
 }
 
-{/* <ResponseScreen shortlink={shortLink} /> */}
 function ResponseScreen(props) {
   return (
-    <div>{props.shortlink}</div>
+    <Paragraph copyable>
+      <Link href="props.shortlink" target="_blank">
+        {props.shortlink}
+      </Link>
+    </Paragraph>
   )
 }
 
