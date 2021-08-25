@@ -113,11 +113,11 @@ function App() {
 
 function ResponseScreen(props) {
   return (
-    <Paragraph copyable>
-      <Link href="props.shortlink" target="_blank">
+    <Link href={props.shortlink} target="_blank">
+      <Paragraph copyable>
         {props.shortlink}
-      </Link>
-    </Paragraph>
+      </Paragraph>
+    </Link >
   )
 }
 
