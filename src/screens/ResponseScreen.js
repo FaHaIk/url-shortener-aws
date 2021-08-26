@@ -6,7 +6,8 @@ export default function ResponseScreen(props) {
     const [isClicked, setIsClicked] = React.useState(false);
 
     const cardStyle = {
-        boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.3)"
+        boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.3)",
+        width: '100%'
     }
 
     function clicked() {
@@ -14,7 +15,7 @@ export default function ResponseScreen(props) {
     }
 
     return (
-        <Card style={cardStyle} title="You did it!" style={{ width: '100%' }}>
+        <Card style={cardStyle} title="You did it!">
             <p>Click on the Icon to copy your link.</p>
             <Link href={props.shortlink} target="_blank">
                 <Paragraph onClick={clicked} code copyable>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Card, Typography, Alert } from 'antd';
+import { Card, Space, Typography, Alert, Skeleton } from 'antd';
 import {
     useParams
 } from "react-router-dom";
@@ -48,18 +48,18 @@ export default function RedirectScreen() {
 
     return (
         <>
-            {notFound &&
+            {!notFound ? <Skeleton active /> :
                 <Card title="Sorry, there is nothing to see!" style={{ width: '100%' }}>
-                    <Link href="/" target="_blank">
+                    <Link href="/" target="_self">
                         Go to Homepage.
                     </Link >
+                    <Space direction="vertical" size="large"></Space>
                     <Alert
                         message="Entry not found"
                         description={errorTxt}
                         type="error"
                         showIcon
                     />
-
                 </Card>
             }
         </>
