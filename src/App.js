@@ -90,7 +90,7 @@ function App() {
                 </Typography>
                 <Divider />
                 <Spin spinning={isLoading} delay={500}><form id="myForm" onSubmit={onPressEnter}>
-                  <Input onChange={onChange} onPressEnter={onPressEnter} size="large" placeholder="Paste long URL and shorten it!" prefix={<LinkOutlined />} />
+                  <Input onChange={onChange} onPressEnter={onPressEnter} size="large" placeholder="Paste long URL and press Enter!" prefix={<LinkOutlined />} />
                   <div className="spacer"></div>
                   <div className="settings-wrapper">
                     <div style={{ alignSelf: "center" }}>

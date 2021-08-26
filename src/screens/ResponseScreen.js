@@ -23,11 +23,15 @@ export default function ResponseScreen(props) {
                 </Paragraph>
             </Link >
             {isClicked && <Alert
+                closable
                 message="Successfully Copied"
                 description="You have successfully copied your link."
                 type="success"
                 showIcon
             />}
+            <Link href="/" target="_self">
+                Go to Homepage
+            </Link >
 
         </Card>
     )
